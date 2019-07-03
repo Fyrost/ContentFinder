@@ -9,10 +9,8 @@ import com.example.contentfinder.Models.SearchModel
 import com.example.contentfinder.R
 import kotlinx.android.synthetic.main.result_list.view.*
 
-
 class SearchAdapter(var context: MainActivity,
                     var resultList: SearchModel.ResultList): RecyclerView.Adapter<SearchAdapter.EmpHolder>()  {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmpHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.result_list, parent, false)
