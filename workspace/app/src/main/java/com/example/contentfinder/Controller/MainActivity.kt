@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
             val term = editText_search.text.toString()
             getResults(term)
         }
+        test_button_main.setOnClickListener {
+            showMenu()
+        }
     }
 
     private fun getResults(term : String) {
@@ -37,5 +40,11 @@ class MainActivity : AppCompatActivity() {
         mSearchViewModel.getResultData(term)?.observe(this, Observer<SearchModel.ResultList> { resultList ->
             recyclerView_main.adapter = SearchAdapter(this@MainActivity, resultList as SearchModel.ResultList)
         })
+    }
+
+    private fun showMenu(){
+        val fm = supportFragmentManager
+        val fragment = MenuFragment()
+        fragment.show(fm,"something")
     }
 }
