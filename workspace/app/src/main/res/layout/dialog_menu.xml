@@ -26,13 +26,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/imageView"/>
 
     <TextView
             style="@style/Heading1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="BROWSE"
+            android:text="BROWSE"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             android:layout_marginBottom="24dp"
@@ -41,11 +41,10 @@
             style="@style/Heading1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="42dp"
-            android:layout_marginBottom="74dp"
-            tools:text="FAVORITES"
-            android:id="@+id/textView"/>
+            android:text="FAVORITES"
+            android:id="@+id/textView" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="73dp"/>
 
 </android.support.constraint.ConstraintLayout>
