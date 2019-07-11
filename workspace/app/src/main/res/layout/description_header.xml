@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_close"
-                android:id="@+id/imageButton"
+                android:id="@+id/close_button_description"
                 android:background="@null"
                 android:layout_marginTop="24dp"
                 android:layout_marginLeft="24dp"
@@ -33,7 +33,7 @@
             android:textColor="@color/colorBeige"
             android:lineSpacingExtra="8sp"
             android:layout_marginBottom="40dp"
-            tools:text="Blade Runner: 2049"
+            android:text="Blade Runner: 2049"
             app:layout_anchorGravity="bottom|center" app:layout_anchor="@+id/imageView2"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

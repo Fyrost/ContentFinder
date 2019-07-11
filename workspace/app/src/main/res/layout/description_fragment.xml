@@ -2,7 +2,6 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent" android:background="@color/colorBeige">
     <LinearLayout
@@ -12,23 +11,22 @@
 
         <include android:id="@+id/description_header" layout="@layout/description_header"
                  android:layout_height="360dp" android:layout_width="match_parent"/>
-
-        <include android:id="@+id/description_content" layout="@layout/description_content"
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 app:layout_anchorGravity="bottom|center"
-                 android:layout_marginLeft="25dp"
-                 android:layout_marginRight="25dp"
-                 app:layout_anchor="@+id/description_header"/>
-
+<ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+    <include android:id="@+id/description_content" layout="@layout/description_content"
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             app:layout_anchorGravity="bottom|center"
+             android:layout_marginLeft="25dp"
+             android:layout_marginRight="25dp"
+             app:layout_anchor="@+id/description_header"/>
+</ScrollView>
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:src="@drawable/ic_favorite"
             android:layout_margin="16dp"
-
             app:backgroundTint="@color/colorAccent"
             app:fabSize="auto" android:adjustViewBounds="false"
             android:background="@drawable/ic_fab_rounded"
