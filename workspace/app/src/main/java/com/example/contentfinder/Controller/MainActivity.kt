@@ -27,6 +27,12 @@ class MainActivity : AppCompatActivity() {
         gridLayoutManager = GridLayoutManager(this@MainActivity, 3)
         recycleView_main.layoutManager = gridLayoutManager
         sortResult()
+
+        test_button_main.setOnClickListener {
+            val fm = supportFragmentManager
+            val fragment = DetailFragment()
+            fragment.show(fm,"something")
+        }
     }
 
     fun sortResult() {
@@ -56,6 +62,8 @@ class MainActivity : AppCompatActivity() {
             //recyclerView_main.adapter = SearchAdapter(this@MainActivity, resultList as SearchModel.ResultList)
         })
     }
+
+
 //        linearLayoutManager = LinearLayoutManager(this@MainActivity)
 //        recyclerView_main.layoutManager = linearLayoutManager
 //        recyclerView_main.hasFixedSize()
