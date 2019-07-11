@@ -11,6 +11,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
         <include android:id="@+id/title_bar" layout="@layout/title_bar"/>
+        <Button
+                android:text="Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/test_button_main"/>
         <TextView
                 android:text="TextView"
                 android:layout_width="match_parent"
