@@ -6,6 +6,7 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+
 import com.example.contentfinder.Controller.BodyFragment
 
 private val TAB_TITLES = arrayOf(
@@ -21,7 +22,7 @@ private val mediaList : Array<String> = arrayOf("music", "movie", "tvShow", "aud
 
 class SectionPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment {
+    override fun getItem(position: Int): Fragment? {
         return BodyFragment.newInstance(position, mediaList[position])
     }
 
