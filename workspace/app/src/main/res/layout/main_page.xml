@@ -11,6 +11,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
         <include android:id="@+id/title_bar" layout="@layout/title_bar"/>
+
         <TextView
                 android:text="TextView"
                 android:layout_width="match_parent"
@@ -21,8 +22,13 @@
                 android:paddingTop="49dp"
                 android:paddingBottom="6dp"
                 tools:text='Results for "keyword"'
-                android:id="@+id/textView_resultIndicator_main"/>
-        <include android:id="@+id/body_main" layout="@layout/body_main"/>
-
+                android:id="@+id/textView_resultIndicator_main1"/>
+        <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_marginLeft="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </android.support.v4.view.ViewPager>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
