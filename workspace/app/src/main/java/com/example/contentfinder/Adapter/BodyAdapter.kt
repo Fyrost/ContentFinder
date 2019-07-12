@@ -11,7 +11,19 @@ import com.example.contentfinder.R
 
 import kotlinx.android.synthetic.main.body_row_main.view.*
 
-class BodyAdapter(var resultList : MutableList<SearchModel.Result>) : RecyclerView.Adapter<BodyAdapter.TempHolder>() {
+class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerView.Adapter<BodyAdapter.TempHolder>() {
+
+    private var resultList: ArrayList<SearchModel.Result> = resultList1
+
+    fun updateResult(res: ArrayList<SearchModel.Result>) {
+        resultList.clear()
+        resultList = res
+        notifyDataSetChanged()
+    }
+
+    fun getResults(): ArrayList<SearchModel.Result> {
+        return resultList
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TempHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

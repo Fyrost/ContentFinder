@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.Nullable
 import android.support.design.widget.TabLayout
 import android.view.LayoutInflater
 import android.view.View
@@ -11,107 +12,103 @@ import android.view.ViewGroup
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.KeyEvent
 import android.widget.EditText
+import android.widget.Toast
 
 import com.example.contentfinder.Adapter.BodyAdapter
 import com.example.contentfinder.Controller0.BodyViewModel
 import com.example.contentfinder.Models.SearchModel
 import com.example.contentfinder.R
+import com.example.contentfinder.Service.RetrofitService
 import com.example.contentfinder.ViewModel.SearchViewModel
+import kotlinx.android.synthetic.main.body_main.view.*
+import kotlinx.android.synthetic.main.main_page.*
+import kotlinx.android.synthetic.main.title_bar.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BodyFragment : Fragment() {
 
-    private lateinit var pageViewModel: BodyViewModel
-    private lateinit var mSearchViewModel: SearchViewModel
-    private var isListenerSet : Boolean = false
-    private var secNum : Int? = 0
+    lateinit var recyclerView: RecyclerView
+    lateinit var bodyAdapter: BodyAdapter
+    lateinit var gridLayoutManager: GridLayoutManager
+    lateinit var mSearchViewModel: SearchViewModel
+    private var resList: ArrayList<SearchModel.Result> = arrayListOf()
+    private var ctx: Context? = null
 
     companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
+        private const val SECTION_CATEGORY = "section_category"
         @JvmStatic
-        fun newInstance(sectionNumber: Int): BodyFragment {
+        fun newInstance(sectionNumber: Int, category: String): BodyFragment {
             return BodyFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)
-                    secNum = sectionNumber
+                    putString(SECTION_CATEGORY, category)
+                    putString("title", "page#"+sectionNumber)
                 }
             }
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycleView_main)
-        val searchBar: EditText = activity!!.findViewById(R.id.editText_search_titleBar)
-        if (!isListenerSet) {
-            searchBar.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    var term = activity!!.findViewById<EditText>(R.id.editText_search_titleBar).text.toString()
-                    var temp = mSearchViewModel.getResultData(term, mSearchViewModel.getMediaFilter(secNum!!))
-                    temp?.observe(activity!!, Observer<SearchModel.ResultList> { resultList ->
-                        recyclerView.adapter = BodyAdapter(mSearchViewModel.arrangeResults(resultList))
-                    })
-                    return@OnKeyListener true
-                }
-                false
-            })
-            activity!!.findViewById<TabLayout>(R.id.tabs).addOnTabSelectedListener(object :
-                TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                    if (tab.position == arguments?.getInt(ARG_SECTION_NUMBER)) {
-                        var term = activity!!.findViewById<EditText>(R.id.editText_search_titleBar).text.toString()
-                        var temp = mSearchViewModel.getResultData(term, mSearchViewModel.getMediaFilter(tab.position))
-                        temp?.observe(activity!!, Observer<SearchModel.ResultList> { resultList ->
-                            recyclerView.adapter = BodyAdapter(mSearchViewModel.arrangeResults(resultList))
-                            println(arguments?.getInt(ARG_SECTION_NUMBER).toString())
-                        })
-                    }
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab) {
-
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab) {
-
-                }
-            })
-            isListenerSet = true
-        }
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        ctx = context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProviders.of(this).get(BodyViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-            secNum = arguments?.getInt(ARG_SECTION_NUMBER)
-        }
-        mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
     }
 
+    @Nullable
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var root = inflater.inflate(R.layout.body_main, container, false)
-        val recyclerView: RecyclerView = root.findViewById(R.id.recycleView_main)
-        recyclerView.layoutManager = GridLayoutManager(activity, 3)
-        return root
+        mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        return inflater.inflate(R.layout.body_main, container, false)
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.recycleView_main)
+        recyclerView.setHasFixedSize(true)
+        gridLayoutManager = GridLayoutManager(ctx, 3)
+        recyclerView.layoutManager = gridLayoutManager
+        bodyAdapter = BodyAdapter(resList)
+        recyclerView.adapter = bodyAdapter
+    }
 
-//    fun displayData(recyclerView: RecyclerView, media : String) {
-//        recyclerView.layoutManager = GridLayoutManager(activity, 3)
-//        recyclerView.adapter = bodyAdapter
-//        var term = activity!!.findViewById<EditText>(R.id.editText_search_titleBar).text.toString()
-//        mSearchViewModel.getResultData(term, media)?.observe(activity!!, Observer<SearchModel.ResultList> { resultList ->
-//            results.addAll(mSearchViewModel.arrangeResults(resultList))
-//        })
-//        bodyAdapter.notifyDataSetChanged()
-//    }
-//
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        populate()
+
+    }
+
+    fun populate() {
+        var term = activity!!.findViewById<EditText>(R.id.editText_search_titleBar).text.toString()
+        val retrofitCall = RetrofitService.create().getResults(term, arguments!!.getString(SECTION_CATEGORY))
+        retrofitCall.enqueue(object : Callback<SearchModel.ResultList> {
+            override fun onFailure(call: Call<SearchModel.ResultList>, t: Throwable) {
+                Log.e("on Failure :", t.message)
+            }
+
+            override fun onResponse(call: Call<SearchModel.ResultList>, response: Response<SearchModel.ResultList>) {
+                if (resList.isEmpty()) {
+                    resList.clear()
+                }
+
+                resList = mSearchViewModel.arrangeResults(response.body())
+                bodyAdapter.updateResult(resList)
+                bodyAdapter.notifyDataSetChanged()
+            }
+        })
+    }
 }

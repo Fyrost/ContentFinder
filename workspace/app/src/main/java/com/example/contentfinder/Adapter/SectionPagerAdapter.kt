@@ -17,10 +17,12 @@ private val TAB_TITLES = arrayOf(
     R.string.short_film_tab
 )
 
+private val mediaList : Array<String> = arrayOf("music", "movie", "tvShow", "audiobook", "musicVideo", "shortFilm")
+
 class SectionPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        return BodyFragment.newInstance(position)
+        return BodyFragment.newInstance(position, mediaList[position])
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
