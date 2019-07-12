@@ -10,7 +10,6 @@ import com.example.contentfinder.Service.RetrofitService
 class SearchViewModel: ViewModel() {
 
     private val mService = RetrofitService()
-    private val mediaList : Array<String> = arrayOf("music", "movie", "tvShow", "audiobook", "musicVideo", "shortFilm")
 
     fun getResultData(term : String, media : String) : MutableLiveData<SearchModel.ResultList>? {
         Log.e("getResultData", "yes")
@@ -25,9 +24,5 @@ class SearchViewModel: ViewModel() {
             }
         }
         return result
-    }
-
-    fun getMediaFilter(filterIndex : Int) : String {
-        return mediaList[filterIndex]
     }
 }

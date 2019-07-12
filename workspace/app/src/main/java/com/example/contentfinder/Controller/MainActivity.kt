@@ -1,8 +1,10 @@
 package com.example.contentfinder.Controller
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import androidx.viewpager.widget.ViewPager
 import android.view.KeyEvent
 import android.view.View
@@ -31,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         tabs.setupWithViewPager(viewPager)
 
-
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -50,4 +51,5 @@ class MainActivity : AppCompatActivity() {
             false
         })
     }
+
 }

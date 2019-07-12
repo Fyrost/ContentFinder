@@ -39,7 +39,7 @@ class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerVie
         val holderItemView = holder.itemView
         val result = resultList[position]
         val trackName = result.trackName
-        val trackImg = result.artworkUrl60
+        val trackImg = result.artworkUrl100
         val trackPrice = "$ " + result.trackPrice
         val trackGenre = result.primaryGenreName
 
