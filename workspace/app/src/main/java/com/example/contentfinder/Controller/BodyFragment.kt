@@ -100,6 +100,7 @@ class BodyFragment : Fragment() {
                     if (resList.isEmpty()) {
                         resList.clear()
                     }
+                    println(resList)
 
                     resList = mSearchViewModel.arrangeResults(response.body())
                     if (resList.size == 0) {
