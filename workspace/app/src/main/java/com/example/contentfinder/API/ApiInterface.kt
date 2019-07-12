@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface ApiInterface {
     @GET("search")
-    fun getResults(@Query("term") term : String): Call<SearchModel.ResultList>
+    fun getResults(@Query("term") term : String, @Query("media") media : String): Call<SearchModel.ResultList>
 }
