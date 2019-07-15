@@ -80,7 +80,11 @@ class FavoriteFragment: Fragment() {
         var tab = activity!!.findViewById<TabLayout>(R.id.tabs)
         if (temp1.size == 0) {
             var tabText = tab.getTabAt(arguments!!.getInt(ARG_SECTION_NUMBER))!!.text
-            emptyView.text = "No ${tabText} in your favorites yet"
+            if (term.isNullOrBlank()) {
+                emptyView.text = "No ${tabText} in your favorites yet"
+            } else {
+                emptyView.text = "Sorry, we couldn\'t find ${tabText} for keywords \"${term}\""
+            }
             emptyView.visibility = View.VISIBLE
             recyclerView.visibility = View.INVISIBLE
         } else {
