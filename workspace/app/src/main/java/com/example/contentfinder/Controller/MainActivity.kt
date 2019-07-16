@@ -1,41 +1,55 @@
 package com.example.contentfinder.Controller
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.support.v7.app.AppCompatActivity
+import android.content.Context
+import androidx.lifecycle.ViewModelProviders
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import com.example.contentfinder.Adapter.SearchAdapter
-import com.example.contentfinder.Models.SearchModel
+import android.util.AttributeSet
+import androidx.viewpager.widget.ViewPager
+import android.view.KeyEvent
+import android.view.View
+
+import com.example.contentfinder.Adapter.SectionPagerAdapter
 import com.example.contentfinder.R
 import com.example.contentfinder.ViewModel.SearchViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+
+import kotlinx.android.synthetic.main.main_page.*
+import kotlinx.android.synthetic.main.title_bar.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var viewPager: ViewPager
+    lateinit var mSearchViewModel: SearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_page)
 
-        linearLayoutManager = LinearLayoutManager(this@MainActivity)
-        recyclerView_main.layoutManager = linearLayoutManager
-        recyclerView_main.hasFixedSize()
+        val sectionsPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
+        viewPager = view_pager
+        mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        viewPager.offscreenPageLimit = 1
+        viewPager.adapter = sectionsPagerAdapter
 
-        button_search.setOnClickListener {
-            val term = editText_search.text.toString()
-            getResults(term)
-        }
-    }
+        tabs.setupWithViewPager(viewPager)
 
-    private fun getResults(term : String) {
-        Log.e("getResults", "yes")
-        val mSearchViewModel = ViewModelProviders.of(this@MainActivity).get(SearchViewModel::class.java)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
 
-        mSearchViewModel.getResultData(term)?.observe(this, Observer<SearchModel.ResultList> { resultList ->
-            recyclerView_main.adapter = SearchAdapter(this@MainActivity, resultList as SearchModel.ResultList)
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+            override fun onPageSelected(position: Int) {
+                BodyFragment.getInstance(position)!!.populate()
+            }
+        })
+        editText_search_titleBar.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                BodyFragment.getInstance(viewPager.currentItem)!!.populate()
+                return@OnKeyListener true
+            }
+            false
         })
     }
+
 }
