@@ -57,38 +57,6 @@ class MainActivity : AppCompatActivity() {
             }
             recycleView_main.adapter = BodyAdapter(this@MainActivity, newResults)
 
-            //val gson : Gson = GsonBuilder().setPrettyPrinting().create()
-            //println(gson.toJson(newResults))
-            //recyclerView_main.adapter = SearchAdapter(this@MainActivity, resultList as SearchModel.ResultList)
         })
     }
-
-
-//        linearLayoutManager = LinearLayoutManager(this@MainActivity)
-//        recyclerView_main.layoutManager = linearLayoutManager
-//        recyclerView_main.hasFixedSize()
-//
-//        button_search.setOnClickListener {
-//            val term = editText_search.text.toString()
-//            getResults(term)
-//        }
-//        test_button_main.setOnClickListener {
-//            showMenu()
-//        }
-//    }
-//
-//    private fun getResults(term : String) {
-//        Log.e("getResults", "yes")
-//        val mSearchViewModel = ViewModelProviders.of(this@MainActivity).get(SearchViewModel::class.java)
-//
-//        mSearchViewModel.getResultData(term)?.observe(this, Observer<SearchModel.ResultList> { resultList ->
-//            recyclerView_main.adapter = SearchAdapter(this@MainActivity, resultList as SearchModel.ResultList)
-//        })
-//    }
-//
-//    private fun showMenu(){
-//        val fm = supportFragmentManager
-//        val fragment = MenuFragment()
-//        fragment.show(fm,"something")
-//    }
 }
