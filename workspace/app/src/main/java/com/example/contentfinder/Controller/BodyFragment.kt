@@ -19,7 +19,7 @@ import com.example.contentfinder.Models.SearchModel
 import com.example.contentfinder.R
 import com.example.contentfinder.Service.RetrofitService
 import com.example.contentfinder.ViewModel.SearchViewModel
-import kotlinx.android.synthetic.main.body_main.*
+import com.google.android.material.tabs.TabLayout
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -100,10 +100,12 @@ class BodyFragment : Fragment() {
                     if (resList.isEmpty()) {
                         resList.clear()
                     }
+                    println(resList)
 
                     resList = mSearchViewModel.arrangeResults(response.body())
                     if (resList.size == 0) {
-                        emptyView.text = "Sorry, we couldn\'t find any media for \"${term}\""
+                        var tabText = activity!!.findViewById<TabLayout>(R.id.tabs).getTabAt(arguments!!.getInt(ARG_SECTION_NUMBER))!!.text
+                        emptyView.text = "Sorry, we couldn\'t find ${tabText} for \"${term}\""
                         emptyView.visibility = View.VISIBLE
                         recyclerView.visibility = View.INVISIBLE
                         indicator.visibility = View.INVISIBLE
