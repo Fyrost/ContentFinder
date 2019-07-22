@@ -1,35 +1,23 @@
 package com.example.contentfinder.Adapter
 
-<<<<<<< HEAD
-import android.annotation.SuppressLint
-import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
-=======
-import androidx.recyclerview.widget.RecyclerView
->>>>>>> develop
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
-import com.example.contentfinder.Models.SearchModel
 import com.example.contentfinder.R
 
 import kotlinx.android.synthetic.main.body_row_main.view.*
 
-class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerView.Adapter<BodyAdapter.TempHolder>() {
+class FavoriteAdapter(var favoriteList1 : ArrayList<HashMap<String, String>>) : RecyclerView.Adapter<FavoriteAdapter.TempHolder>() {
 
-    private var resultList: ArrayList<SearchModel.Result> = resultList1
+    private var favoriteList: ArrayList<HashMap<String, String>> = favoriteList1
 
-    fun updateResult(res: ArrayList<SearchModel.Result>) {
-        resultList.clear()
-        resultList = res
+    fun updateResult(res: ArrayList<HashMap<String, String>>) {
+        favoriteList.clear()
+        favoriteList = res
         notifyDataSetChanged()
-    }
-
-    fun getResults(): ArrayList<SearchModel.Result> {
-        return resultList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TempHolder {
@@ -39,16 +27,17 @@ class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerVie
     }
 
     override fun getItemCount(): Int {
-        return resultList.size
+        return favoriteList.size
     }
 
     override fun onBindViewHolder(holder: TempHolder, position: Int) {
         val holderItemView = holder.itemView
-        val result = resultList[position]
-        val trackName = result.trackName
-        val trackImg = result.artworkUrl100
-        val trackPrice = "$ " + result.trackPrice
-        val trackGenre = result.primaryGenreName
+        val result = favoriteList[position]
+
+        val trackName = result["trackName"]
+        val trackImg = result["artworkUrl100"]
+        val trackPrice = "$ " + result["trackPrice"]
+        val trackGenre = result["primaryGenreName"]
 
         Glide.with(holderItemView.context)
             .load(trackImg)

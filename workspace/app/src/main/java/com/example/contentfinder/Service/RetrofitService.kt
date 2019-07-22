@@ -15,7 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitService {
 
     val liveUserResponse: MutableLiveData<SearchModel.ResultList> = MutableLiveData()
-
     companion object Factory {
         var gson = GsonBuilder().setLenient().create()
         val baseUrl = "https://itunes.apple.com/"
@@ -32,11 +31,11 @@ class RetrofitService {
         }
     }
 
-    fun loadResultData(term : String): MutableLiveData<SearchModel.ResultList>? {
+    fun loadResultData(term : String, media: String): MutableLiveData<SearchModel.ResultList>? {
 
         Log.e("loadResultData", "yes")
 
-        val retrofitCall = create().getResults(term)
+        val retrofitCall = create().getResults(term, media)
 
         retrofitCall.enqueue(object : Callback<SearchModel.ResultList> {
             override fun onFailure(call: Call<SearchModel.ResultList>, t: Throwable) {

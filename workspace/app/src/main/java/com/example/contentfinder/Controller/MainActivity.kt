@@ -1,5 +1,6 @@
 package com.example.contentfinder.Controller
 
+<<<<<<< HEAD
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.appcompat.app.AppCompatActivity
@@ -11,19 +12,35 @@ import android.util.Log
 import com.example.contentfinder.Adapter.BodyAdapter
 import com.example.contentfinder.Adapter.SearchAdapter
 import com.example.contentfinder.Models.SearchModel
+=======
+import android.content.Context
+import android.content.Intent
+import androidx.lifecycle.ViewModelProviders
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.AttributeSet
+import androidx.viewpager.widget.ViewPager
+import android.view.KeyEvent
+import android.view.View
+
+import com.example.contentfinder.Adapter.SectionPagerAdapter
+>>>>>>> develop
 import com.example.contentfinder.R
 import com.example.contentfinder.ViewModel.SearchViewModel
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.body_main.*
+
+import kotlinx.android.synthetic.main.main_page.*
+import kotlinx.android.synthetic.main.title_bar.*
 
 class MainActivity : AppCompatActivity() {
-    lateinit var gridLayoutManager : GridLayoutManager
+
+    lateinit var viewPager: ViewPager
+    lateinit var mSearchViewModel: SearchViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_page)
 
+<<<<<<< HEAD
         gridLayoutManager = GridLayoutManager(this@MainActivity, 3)
         recycleView_main.layoutManager = gridLayoutManager
         sortResult()
@@ -34,29 +51,43 @@ class MainActivity : AppCompatActivity() {
             fragment.show(fm,"something")
         }
     }
+=======
+        val sectionsPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
+        viewPager = view_pager
+        mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        viewPager.offscreenPageLimit = 1
+        viewPager.adapter = sectionsPagerAdapter
+>>>>>>> develop
 
-    fun sortResult() {
-        val mSearchViewModel = ViewModelProviders.of(this@MainActivity).get(SearchViewModel::class.java)
-        val term = "toy story"
-        mSearchViewModel.getResultData(term)?.observe(this, Observer<SearchModel.ResultList> { resultList ->
-            val map = HashMap<String, ArrayList<SearchModel.Result>>()
-            for (res in resultList!!.results) {
-                if (res.kind !== null || res.trackName !== null ) {
-                    var kind = map[res.kind]
-                    if (kind == null) {
-                        kind = ArrayList()
-                        map[res.kind] = kind
-                    }
-                    kind.add(res)
-                }
-            }
-            val newResults = ArrayList<SearchModel.ResultRow>()
-            for ((key, value) in map) {
-                newResults.add(SearchModel.ResultRow(SearchModel.RowType.HEADER, null, key))
-                value.mapTo(newResults) { SearchModel.ResultRow(SearchModel.RowType.VALUES, it, null) }
-            }
-            recycleView_main.adapter = BodyAdapter(this@MainActivity, newResults)
+        tabs.setupWithViewPager(viewPager)
 
+        fab.setOnClickListener {
+            val myIntent = Intent(this, FavoriteActivity::class.java)
+            startActivity(myIntent)
+        }
+
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+<<<<<<< HEAD
         })
     }
+=======
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+            override fun onPageSelected(position: Int) {
+                BodyFragment.getInstance(position)!!.populate()
+            }
+        })
+        editText_search_titleBar.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                BodyFragment.getInstance(viewPager.currentItem)!!.populate()
+                return@OnKeyListener true
+            }
+            false
+        })
+    }
+
+>>>>>>> develop
 }

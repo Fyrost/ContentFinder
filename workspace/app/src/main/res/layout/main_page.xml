@@ -9,24 +9,50 @@
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/linearLayout">
         <include android:id="@+id/title_bar" layout="@layout/title_bar"/>
+<<<<<<< HEAD
         <Button
                 android:text="Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/test_button_main"/>
+=======
+
+>>>>>>> develop
         <TextView
-                android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/colorNavy"
-                android:paddingLeft="24dp"
+                android:paddingLeft="26dp"
                 android:paddingTop="49dp"
                 android:paddingBottom="6dp"
                 tools:text='Results for "keyword"'
+                android:visibility="invisible"
                 android:id="@+id/textView_resultIndicator_main"/>
-        <include android:id="@+id/body_main" layout="@layout/body_main"/>
-
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </androidx.viewpager.widget.ViewPager>
     </LinearLayout>
+<<<<<<< HEAD
+=======
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_menu"
+            android:layout_margin="16dp"
+            app:fabSize="auto" android:adjustViewBounds="false"
+            android:background="@drawable/ic_fab_rounded"
+            android:backgroundTint="@color/colorNavy"
+            android:elevation="3dp"
+            app:layout_anchorGravity="end|bottom"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="20dp"/>
+>>>>>>> develop
 </androidx.constraintlayout.widget.ConstraintLayout>
