@@ -35,8 +35,9 @@ class MainActivity : AppCompatActivity() {
         tabs.setupWithViewPager(viewPager)
 
         fab.setOnClickListener {
-            val myIntent = Intent(this, FavoriteActivity::class.java)
-            startActivity(myIntent)
+            showMenu()
+//            val myIntent = Intent(this, FavoriteActivity::class.java)
+//            startActivity(myIntent)
         }
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -56,6 +57,12 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
+    }
+
+    private fun showMenu(){
+        val fm = supportFragmentManager
+        val fragment = MenuFragment()
+        fragment.show(fm,"something")
     }
 
 }
