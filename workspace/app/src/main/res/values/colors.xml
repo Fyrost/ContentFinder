@@ -4,7 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorRouge">#b32442</color>
-    <color name="colorWhite">#ffffff</color>
     <color name="colorBeige">#f7f5eb</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorMistyRose">#fbe3e7</color>
+    <color name="colorLightCoral">#ef8d9f</color>
     <color name="colorNavy">#042a38</color>
+    <color name="colorDarkRouge">#3b051a</color>
 </resources>
