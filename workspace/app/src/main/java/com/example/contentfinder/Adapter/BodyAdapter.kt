@@ -46,9 +46,18 @@ class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerVie
         Glide.with(holderItemView.context)
             .load(trackImg)
             .into(holderItemView.imageView_trackImg_row)
-        holderItemView.textView_trackName_row.text = trackName
-        holderItemView.textView_trackGenre_row.text = trackGenre
-        holderItemView.textView_trackPrice_row.text = trackPrice
+
+        if(trackName == null)
+            holderItemView.textView_trackName_row.visibility = View.GONE
+        else
+            holderItemView.textView_trackName_row.text = trackName
+
+        if(trackGenre == null)
+            holderItemView.textView_trackGenre_row.visibility = View.GONE
+        else
+            holderItemView.textView_trackGenre_row.text = trackGenre
+
+        holderItemView.textView_trackPrice_row.text = if(trackPrice == "$ null")  "FREE" else trackPrice
     }
 
     class TempHolder(view: View) : RecyclerView.ViewHolder(view) {
