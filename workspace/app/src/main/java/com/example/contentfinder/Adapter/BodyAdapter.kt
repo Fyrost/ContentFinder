@@ -58,6 +58,7 @@ class BodyAdapter(resultList1 : ArrayList<SearchModel.Result>) : RecyclerView.Ad
         }
 
         fun putResults(intent: Intent, result: SearchModel.Result): Intent {
+            intent.putExtra("trackId", result.trackId)
             intent.putExtra("trackName", result.trackName)
             intent.putExtra("trackImg", result.artworkUrl100)
             intent.putExtra("trackPrice", result.trackPrice)

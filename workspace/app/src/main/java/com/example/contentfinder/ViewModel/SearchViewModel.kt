@@ -19,9 +19,12 @@ class SearchViewModel: ViewModel() {
     fun arrangeResults(resultList : SearchModel.ResultList?) : ArrayList<SearchModel.Result> {
         val result: ArrayList<SearchModel.Result> = ArrayList()
         for (res in resultList!!.results) {
-            if (res.trackPrice == null) {
+            if (res.trackPrice == null || res.trackPrice.toDouble() < 0) {
                 println(res.trackName)
             } else {
+                if (res.kind == null) {
+                    res.kind = "audiobook"
+                }
                 result.add(res)
             }
         }

@@ -13,7 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.contentfinder.Adapter.FavoriteAdapter
+import com.example.contentfinder.Entity.ResultDatabase
+import com.example.contentfinder.Entity.ResultEntity
 import com.example.contentfinder.R
 import com.example.contentfinder.ViewModel.SearchViewModel
 
@@ -26,7 +29,7 @@ class FavoriteFragment: Fragment() {
     lateinit var mSearchViewModel: SearchViewModel
     lateinit var emptyView: TextView
     private var ctx: Context? = null
-    private var popu: ArrayList<HashMap<String, String>> = arrayListOf()
+    private var favoriteList: ArrayList<ResultEntity> = arrayListOf()
 
     companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
@@ -69,52 +72,28 @@ class FavoriteFragment: Fragment() {
         recyclerView.setHasFixedSize(true)
         gridLayoutManager = GridLayoutManager(ctx, 3)
         recyclerView.layoutManager = gridLayoutManager
-        favoriteAdapter = FavoriteAdapter(popu)
+        favoriteAdapter = FavoriteAdapter(favoriteList)
         recyclerView.adapter = favoriteAdapter
     }
 
-    fun populate() {
-        var term = activity!!.findViewById<EditText>(R.id.editText_search_titleBar).text.toString()
-        generateData()
-        var temp1 = searchTerm(term)
-        var tab = activity!!.findViewById<TabLayout>(R.id.tabs)
-        if (temp1.size == 0) {
-            var tabText = tab.getTabAt(arguments!!.getInt(ARG_SECTION_NUMBER))!!.text
-            if (term.isNullOrBlank()) {
+    fun populate(resultList: List<ResultEntity>) {
+        //favoriteList = resultList
+        var temp: ArrayList<ResultEntity> = arrayListOf()
+        temp.addAll(resultList)
+        if (resultList.isEmpty()) {
+            var term = activity!!.findViewById<EditText>(R.id.editText_search_titleBar).text.toString()
+            var tab = activity!!.findViewById<TabLayout>(R.id.tabs)
+            var tabText = tab.getTabAt(arguments!!.getInt(ARG_SECTION_NUMBER))!!.text.toString()
+            if (term == null || term == "") {
                 emptyView.text = "No ${tabText} in your favorites yet"
             } else {
-                emptyView.text = "Sorry, we couldn\'t find ${tabText} for keywords \"${term}\""
+                emptyView.text = "Sorry, we couldn\'t find \"${tabText}\" for keywords\"${term}\""
             }
-            emptyView.visibility = View.VISIBLE
-            recyclerView.visibility = View.INVISIBLE
+            //emptyView.visibility = View.VISIBLE
         } else {
-            emptyView.visibility = View.INVISIBLE
-            recyclerView.visibility = View.VISIBLE
-            favoriteAdapter.updateResult(temp1)
+            //emptyView.visibility = View.INVISIBLE
+            favoriteAdapter.updateResult(temp)
             favoriteAdapter.notifyDataSetChanged()
         }
-    }
-
-    fun generateData() {
-        var tempArray: ArrayList<HashMap<String, String>> = arrayListOf()
-        var temp: HashMap<String, String> = hashMapOf()
-        for (i in 0 until 10) {
-            temp["trackName"] = "John Wick "+i
-            temp["artworkUrl100"] = "https://is1-ssl.mzstatic.com/image/thumb/Music128/v4/fd/51/e8/fd51e8a6-cd10-271b-2ecb-a6ed69fc0fca/source/100x100bb.jpg"
-            temp["trackPrice"] = "$ 10.00"
-            temp["primaryGenreName"] = "Action"
-            tempArray.add(temp)
-        }
-        popu = tempArray
-    }
-
-    fun searchTerm(term: String) : ArrayList<HashMap<String, String>> {
-        var tempArray : ArrayList<HashMap<String, String>> = arrayListOf()
-        for (row in popu) {
-            if (row["trackName"]!!.startsWith(term, 0, true)) {
-                tempArray.add(row)
-            }
-        }
-        return tempArray
     }
 }

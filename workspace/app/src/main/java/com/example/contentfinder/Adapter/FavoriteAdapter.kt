@@ -6,18 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
+import com.example.contentfinder.Entity.ResultEntity
 import com.example.contentfinder.R
 
 import kotlinx.android.synthetic.main.body_row_main.view.*
 
-class FavoriteAdapter(var favoriteList1 : ArrayList<HashMap<String, String>>) : RecyclerView.Adapter<FavoriteAdapter.TempHolder>() {
+class FavoriteAdapter(favoriteList1 : ArrayList<ResultEntity>) : RecyclerView.Adapter<FavoriteAdapter.TempHolder>() {
 
-    private var favoriteList: ArrayList<HashMap<String, String>> = favoriteList1
+    private var favoriteList: ArrayList<ResultEntity> = favoriteList1
 
-    fun updateResult(res: ArrayList<HashMap<String, String>>) {
-        favoriteList.clear()
+    fun updateResult(res: ArrayList<ResultEntity>) {
         favoriteList = res
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TempHolder {
@@ -34,10 +33,10 @@ class FavoriteAdapter(var favoriteList1 : ArrayList<HashMap<String, String>>) : 
         val holderItemView = holder.itemView
         val result = favoriteList[position]
 
-        val trackName = result["trackName"]
-        val trackImg = result["artworkUrl100"]
-        val trackPrice = "$ " + result["trackPrice"]
-        val trackGenre = result["primaryGenreName"]
+        val trackName = result.trackName
+        val trackImg = result.artworkUrl100
+        val trackPrice = result.trackPrice
+        val trackGenre = result.primaryGenreName
 
         Glide.with(holderItemView.context)
             .load(trackImg)
