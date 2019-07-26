@@ -1,11 +1,8 @@
 package com.example.contentfinder.Controller
 
-import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
 import androidx.viewpager.widget.ViewPager
 import android.view.KeyEvent
 import android.view.View
@@ -36,14 +33,11 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             showMenu()
-//            val myIntent = Intent(this, FavoriteActivity::class.java)
-//            startActivity(myIntent)
         }
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
-
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
             override fun onPageSelected(position: Int) {
@@ -58,6 +52,8 @@ class MainActivity : AppCompatActivity() {
             false
         })
     }
+
+
 
     private fun showMenu(){
         val fm = supportFragmentManager

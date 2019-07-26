@@ -1,17 +1,20 @@
 package com.example.contentfinder.Adapter
 
+import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
+import com.example.contentfinder.Controller.DescriptionActivity
 import com.example.contentfinder.Models.SearchModel
 import com.example.contentfinder.R
+import com.example.contentfinder.ViewModel.SearchViewModel
 
 import kotlinx.android.synthetic.main.body_row_main.view.*
 
-class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerView.Adapter<BodyAdapter.TempHolder>() {
+class BodyAdapter(resultList1 : ArrayList<SearchModel.Result>) : RecyclerView.Adapter<BodyAdapter.TempHolder>() {
 
     private var resultList: ArrayList<SearchModel.Result> = resultList1
 
@@ -19,10 +22,6 @@ class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerVie
         resultList.clear()
         resultList = res
         notifyDataSetChanged()
-    }
-
-    fun getResults(): ArrayList<SearchModel.Result> {
-        return resultList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TempHolder {
@@ -36,21 +35,38 @@ class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: TempHolder, position: Int) {
-        val holderItemView = holder.itemView
-        val result = resultList[position]
-        val trackName = result.trackName
-        val trackImg = result.artworkUrl100
-        val trackPrice = "$ " + result.trackPrice
-        val trackGenre = result.primaryGenreName
-
-        Glide.with(holderItemView.context)
-            .load(trackImg)
-            .into(holderItemView.imageView_trackImg_row)
-        holderItemView.textView_trackName_row.text = trackName
-        holderItemView.textView_trackGenre_row.text = trackGenre
-        holderItemView.textView_trackPrice_row.text = trackPrice
+        holder.setItemDetails(resultList[position])
     }
 
     class TempHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun setItemDetails(result: SearchModel.Result) {
+            var trackName = result.trackName
+            var trackImg = result.artworkUrl100
+            var trackPrice = "$ " + result.trackPrice
+            var trackGenre = result.primaryGenreName
+            Glide.with(itemView.context)
+                .load(trackImg)
+                .into(itemView.imageView_trackImg_row)
+            itemView.textView_trackName_row.text = trackName
+            itemView.textView_trackGenre_row.text = trackGenre
+            itemView.textView_trackPrice_row.text = trackPrice
+            itemView.setOnClickListener{ view ->
+                val intent = Intent(itemView.context, DescriptionActivity::class.java)
+                putResults(intent, result)
+                itemView.context.startActivity(intent)
+            }
+        }
+
+        fun putResults(intent: Intent, result: SearchModel.Result): Intent {
+            intent.putExtra("trackName", result.trackName)
+            intent.putExtra("trackImg", result.artworkUrl100)
+            intent.putExtra("trackPrice", result.trackPrice)
+            intent.putExtra("trackGenre", result.primaryGenreName)
+            intent.putExtra("trackArtist", result.artistName)
+            intent.putExtra("trackCategory", result.kind)
+            intent.putExtra("trackDescription", result.longDescription)
+            intent.putExtra("trackYear", result.releaseDate)
+            return intent
+        }
     }
 }
