@@ -13,6 +13,7 @@
             android:inputType="textPersonName"
             android:ems="10"
             android:textColor="@color/colorBeige"
+            android:text="toy story"
             android:id="@+id/editText_search_titleBar" android:layout_marginStart="24dp"
             android:paddingRight="12dip"
             android:drawableRight="@drawable/ic_action_search"

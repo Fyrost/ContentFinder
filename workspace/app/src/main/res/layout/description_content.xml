@@ -13,7 +13,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/genre_textView"
+                android:id="@+id/advisory_textView"
                 android:textColor="@color/colorNavy"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="PG-13"
@@ -21,11 +21,11 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/price_textView"
+                android:id="@+id/year_textView"
                 android:textColor="@color/colorNavy"
-                app:layout_constraintStart_toStartOf="@+id/genre_textView"
+                app:layout_constraintStart_toStartOf="@+id/advisory_textView"
                 android:text="2019"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/genre_textView"/>
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/advisory_textView"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="wrap_content"
                                                        android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/rating_textView"
+                android:id="@+id/genre_textView"
                 android:textColor="@color/colorNavy"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="ACTION"
@@ -44,11 +44,11 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/year_textView"
+                android:id="@+id/price_textView"
                 android:textColor="@color/colorNavy"
-                app:layout_constraintStart_toStartOf="@+id/rating_textView"
+                app:layout_constraintStart_toStartOf="@+id/genre_textView"
                 android:text="$ 0.99"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/rating_textView"/>
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/genre_textView"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -57,7 +57,7 @@
             android:textSize="16sp"
             android:textColor="@color/colorRouge"
             android:lineSpacingExtra="9sp"
-            android:text="DIRECTOR"
+            android:text="ARTIST NAME"
             android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
             android:id="@+id/textView3"/>
@@ -69,7 +69,8 @@
             android:lineSpacingExtra="5sp"
             android:text="Christopher Nolan"
             app:layout_constraintTop_toTopOf="@+id/textView3"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="5dp" android:layout_marginEnd="5dp"/>
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="5dp" android:layout_marginEnd="5dp"
+            android:id="@+id/artist_textView"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -83,6 +84,6 @@
             app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/description_textView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

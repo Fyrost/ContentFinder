@@ -22,6 +22,9 @@
                   android:theme="@style/NoActionBarTheme">
 
         </activity>
+        <activity android:name=".Controller.DescriptionActivity"
+                  android:theme="@style/NoActionBarTheme">
+        </activity>
         <activity android:name=".Controller.FavoriteActivity"
                   android:theme="@style/NoActionBarTheme">
 

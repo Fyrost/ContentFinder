@@ -5,14 +5,28 @@
         android:layout_width="match_parent"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_height="match_parent">
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
-                android:background="@drawable/sample_detail_image"
-                android:src="@drawable/trending_gradient_shape"
-                android:adjustViewBounds="false"
-                android:scaleType="fitXY"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/image_description"
+                    android:visibility="visible"
+                    android:adjustViewBounds="false"
+                    android:scaleType="fitXY"/>
+            <ProgressBar
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progress_bar_description"
+                    android:layout_centerInParent="true"/>
+            <View android:layout_width="match_parent"
+                  android:background="@drawable/trending_gradient_shape"
+                  android:id="@+id/image_gradient_description"
+                  android:visibility="invisible"
+                  android:layout_height="match_parent"/>
+        </RelativeLayout>
         <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -22,7 +36,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginLeft="24dp"
                 app:layout_anchorGravity="start|top"
-                app:layout_anchor="@+id/imageView2"/>
+                app:layout_anchor="@+id/image_description"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +47,10 @@
             android:textColor="@color/colorBeige"
             android:lineSpacingExtra="8sp"
             android:layout_marginBottom="40dp"
-            android:text="Blade Runner: 2049"
-            app:layout_anchorGravity="bottom|center" app:layout_anchor="@+id/imageView2"/>
+            android:gravity="center"
+            tools:text="Blade Runner: 2049"
+            android:id="@+id/title_description"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_anchor="@+id/image_description"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
