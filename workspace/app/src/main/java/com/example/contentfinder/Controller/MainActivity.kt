@@ -1,14 +1,13 @@
 package com.example.contentfinder.Controller
 
-import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
+import android.text.Editable
+import android.text.TextWatcher
+
 import androidx.viewpager.widget.ViewPager
-import android.view.KeyEvent
-import android.view.View
 
 import com.example.contentfinder.Adapter.SectionPagerAdapter
 import com.example.contentfinder.R
@@ -16,6 +15,8 @@ import com.example.contentfinder.ViewModel.SearchViewModel
 
 import kotlinx.android.synthetic.main.main_page.*
 import kotlinx.android.synthetic.main.title_bar.*
+import java.util.*
+import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_page)
-
         val sectionsPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
         viewPager = view_pager
         mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
@@ -49,13 +49,21 @@ class MainActivity : AppCompatActivity() {
                 BodyFragment.getInstance(position)!!.populate()
             }
         })
-        editText_search_titleBar.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                BodyFragment.getInstance(viewPager.currentItem)!!.populate()
-                return@OnKeyListener true
+
+        editText_search_titleBar.addTextChangedListener(object: TextWatcher{
+            var timer = Timer()
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                timer.cancel()
+                val sleep = 300L
+                timer = Timer()
+                timer.schedule(sleep) {
+                    if (!s.isNullOrEmpty()) {
+                        BodyFragment.getInstance(viewPager.currentItem)!!.populate()
+                    }
+                }
             }
-            false
         })
     }
-
 }
