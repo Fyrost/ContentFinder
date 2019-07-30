@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:background="@drawable/gradient_background_color"
                                                    android:layout_height="match_parent">
 
     <LinearLayout
@@ -9,16 +10,21 @@
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:focusableInTouchMode="true"
             app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/linearLayout">
-        <include android:id="@+id/title_bar" layout="@layout/title_bar"/>
-
+        <include
+                android:id="@+id/title_bar"
+                layout="@layout/title_bar"/>
         <TextView
+                android:translationZ="-5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/colorNavy"
+                android:layout_marginTop="-10dp"
                 android:paddingLeft="26dp"
-                android:paddingTop="49dp"
+                android:background="#33ffffff"
+                android:paddingTop="18dp"
                 android:paddingBottom="6dp"
                 tools:text='Results for "keyword"'
                 android:visibility="invisible"
@@ -27,6 +33,8 @@
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:translationZ="-6dp"
+                android:layout_marginTop="-36dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </androidx.viewpager.widget.ViewPager>
     </LinearLayout>
@@ -38,6 +46,7 @@
             android:layout_margin="16dp"
             app:fabSize="auto" android:adjustViewBounds="false"
             android:background="@drawable/ic_fab_rounded"
+            app:borderWidth="0dp"
             android:backgroundTint="@color/colorNavy"
             android:elevation="3dp"
             app:layout_anchorGravity="end|bottom"

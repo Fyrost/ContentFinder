@@ -39,6 +39,7 @@ class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerVie
         val holderItemView = holder.itemView
         val result = resultList[position]
         val trackName = result.trackName
+        val collectionName = result.collectionName
         val trackImg = result.artworkUrl100
         val trackPrice = "$ " + result.trackPrice
         val trackGenre = result.primaryGenreName
@@ -46,9 +47,19 @@ class BodyAdapter(var resultList1 : ArrayList<SearchModel.Result>) : RecyclerVie
         Glide.with(holderItemView.context)
             .load(trackImg)
             .into(holderItemView.imageView_trackImg_row)
-        holderItemView.textView_trackName_row.text = trackName
-        holderItemView.textView_trackGenre_row.text = trackGenre
-        holderItemView.textView_trackPrice_row.text = trackPrice
+
+        when {
+            trackName != null -> holderItemView.textView_trackName_row.text = trackName
+            collectionName != null -> holderItemView.textView_trackName_row.text = collectionName
+            else -> holderItemView.textView_trackName_row.visibility = View.GONE
+        }
+
+        if(trackGenre != null)
+            holderItemView.textView_trackGenre_row.text = trackGenre
+        else
+            holderItemView.textView_trackGenre_row.visibility = View.GONE
+
+        holderItemView.textView_trackPrice_row.text = if(trackPrice == "$ null")  "FREE" else trackPrice
     }
 
     class TempHolder(view: View) : RecyclerView.ViewHolder(view) {
