@@ -6,44 +6,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="NoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
-
-    <style name="Heading1Bold">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">34sp</item>
-        <item name="android:lineSpacingExtra">26sp</item>
-        <item name="android:textColor">@color/colorBeige</item>
+    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">#EEEEEE</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
-    <style name="Heading1">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">34sp</item>
-        <item name="android:lineSpacingExtra">26sp</item>
-        <item name="android:textColor">@color/colorBeige</item>
-    </style>
-
-    <style name="TextStyle3">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:lineSpacingExtra">3sp</item>
-        <item name="android:textColor">@color/colorNavy</item>
-    </style>
-
-    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <<item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@color/colorNavy</item>
-    </style>
-    <style name="AppTheme.TransparentTheme" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentStatus">true</item>
-
-        <item name="android:windowBackground">@color/colorNavy</item>
-    </style>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>

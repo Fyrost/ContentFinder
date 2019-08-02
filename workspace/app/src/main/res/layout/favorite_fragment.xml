@@ -4,12 +4,11 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.itunes.description.DescriptionFragment">
+        tools:context=".ui.itunes.favorite.FavoriteFragment">
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/textView_description_title"
-            android:text="Hello"/>
+            android:text="Favorite"/>
 
 </FrameLayout>
